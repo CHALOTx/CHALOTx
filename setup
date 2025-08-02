@@ -1,0 +1,30 @@
+#!/usr/bin/bash
+
+clear
+echo "[*] Updating package list..."
+sudo apt update && sudo apt upgrade
+
+echo "[*] Installing Java JDK..."
+sudo apt install default-jdk -y
+
+echo "[*] Installing curl..."
+sudo apt install curl -y
+
+echo "[*] Installing exiftool..."
+sudo apt install libimage-exiftool-perl -y
+
+echo "[*] Installing dnsenum..."
+sudo apt install dnsenum -y
+
+echo "[*] Installing nikto..."
+sudo apt install nikto -y
+
+echo "[*] Verifying installations..."
+java -version && javac -version
+curl --version
+exiftool -ver
+dnsenum --version
+nikto -Version
+echo "[✔] All tools installed. You're ready to run CHALOTx!"
+
+
