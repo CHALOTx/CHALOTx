@@ -9,4 +9,4 @@ git clone https://github.com/Askmechalot01/CHALOTx
 cd CHALOTx
 chmod +x setup
 ./setup
-java chalotx.java
+chalot
