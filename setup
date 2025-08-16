@@ -1,30 +1,47 @@
-#!/usr/bin/bash
+#!/bin/bash
 
-clear
-echo "[*] Updating package list..."
-sudo apt update && sudo apt upgrade
+#CLI for Termux Terminal.
+termux() {
+	echo "[+] Setting CLI and packages for Termux Terminal..."
+	apt update && apt upgrade -y
+	apt install -y tor wget openjdk-17
+	apt install -y curl exiftool 
+	chmod +x $HOME/CHALOTx/chalot
+	mv $HOME/CHALOTx/chalot $PREFIX/bin
+}
+linux() {
+	echo "[+] Setting CLI and packages for $NAME ..."
+	sudo apt update && sudo apt full-upgrade -y
+	sudo apt install -y torsocks default-jdk dnsenum nikto libimage-exiftool-perl
+	sudo dpkg --configure -a
+	sudo apt --fix-broken install
+	sudo apt install -f
+	sudo apt autoclean
+	sudo apt autoremove
+	chmod +x chalot
+	sudo mv chalot /usr/local/bin
+}
+if [ "$PREFIX" = "/data/data/com.termux/files/usr" ]; then
+	echo "Environment  : Termux Terminal"
+	echo "Termux Type  : $TERM"
+	echo "SHELL        : $SHELL"
+	echo "HOME         : $HOME"
+	echo "PREFIX       : $PREFIX"
+	termux
+elif [ -f /etc/os-release ]; then
+	#Source /etc/os-release to check info.
+	. /etc/os-release
 
-echo "[*] Installing Java JDK..."
-sudo apt install default-jdk -y
-
-echo "[*] Installing curl..."
-sudo apt install curl -y
-
-echo "[*] Installing exiftool..."
-sudo apt install libimage-exiftool-perl -y
-
-echo "[*] Installing dnsenum..."
-sudo apt install dnsenum -y
-
-echo "[*] Installing nikto..."
-sudo apt install nikto -y
-
-echo "[*] Verifying installations..."
-java -version && javac -version
-curl --version
-exiftool -ver
-dnsenum --version
-nikto -Version
-echo "[✔] All tools installed. You're ready to run CHALOTx!"
-
-
+	#Check name Os.
+	if echo "$NAME" | grep -qi "kali"; then
+		echo "Environment   : Kali Linux"
+		echo "Terminal Type : $TERM"
+		echo "SHELL         : $SHELL"
+		linux
+	elif echo "$NAME" | grep -qi "ubuntu"; then
+		echo "Environment   : Ubuntu Linux"
+		echo "Terminal Type : $TERM"
+		echo "SHELL         : $SHELL"
+		linux
+	fi
+fi

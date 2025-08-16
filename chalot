@@ -1,0 +1,20 @@
+#!/bin/bash
+
+#Check Os.
+if [ "$PREFIX" = "/data/data/com.termux/files/usr" ]; then
+	clear
+	java -cp $HOME/CHALOTx/bin chalotT
+elif [ -f /etc/os-release ]; then
+	#Source /etc/os-release to check os.
+	. /etc/os-release
+
+	if echo "$NAME" | grep -qi "kali"; then 
+		clear
+		java -cp $HOME/CHALOTx/bin chalotx
+	elif echo "$NAME" | grep -qi "ubuntu"; then
+		clear
+		java -cp $HOME/CHALOTx/bin chalotx
+	else
+		echo "[!] Program can't run. Not support OS."
+	fi
+fi
