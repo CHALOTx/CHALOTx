@@ -3,7 +3,7 @@
 #Check Os.
 if [ "$PREFIX" = "/data/data/com.termux/files/usr" ]; then
 	clear
-	java -cp $HOME/CHALOTx/bin chalotT
+	java -cp $HOME/CHALOTx/bin chaloT
 elif [ -f /etc/os-release ]; then
 	#Source /etc/os-release to check os.
 	. /etc/os-release
